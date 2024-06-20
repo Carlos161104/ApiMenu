@@ -1,0 +1,27 @@
+### Get All users
+GET http://localhost:3000/users
+### Exaple whit one param
+GET http://localhost:3000/users?Name=Rene Tellez
+
+### Create new user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "Name": "Rene Tellez",
+    "Email": "renalgon@example.com",
+    "isAdmin": true,
+    "password": "123AbCD4"
+}
+
+### Modify one user
+PATCH http://localhost:3000/users/1ab8694d-2e8c-11ef-b134-2cf05dfe01c5
+Content-Type: application/json
+
+{
+    "Email" : "modificado2@gmail.com",
+    "Example": "Este si"
+}
+
+### Delete one user
+DELETE http://localhost:3000/users/6b9962f9-2e8c-11ef-b134-2cf05dfe01c5

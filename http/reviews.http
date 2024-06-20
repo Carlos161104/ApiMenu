@@ -1,0 +1,25 @@
+### get All 
+GET http://localhost:3000/reviews?ID=25eee288-2e8d-11ef-b134-2cf05dfe01c5
+
+### post new review
+POST http://localhost:3000/reviews
+Content-Type: application/json
+
+{
+    "DishID": 7,
+    "UserID": "fe51c89a-2cea-11ef-b134-2cf05dfe01c5",
+    "Rating": 4,
+    "Commentary": "Esta muy buno",
+    "Likes": 0
+}
+
+### Modify a review
+PATCH http://localhost:3000/reviews/261f2024-2e7e-11ef-b134-2cf05dfe01c5
+Content-Type: application/json
+
+{
+    "Rating": 4
+}
+
+### Delete a review
+DELETE http://localhost:3000/reviews/261f2024-2e7e-11ef-b134-2cf05dfe01c5

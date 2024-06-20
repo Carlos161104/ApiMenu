@@ -1,0 +1,28 @@
+### Get All dishes and get by key
+GET http://localhost:3000/dishes
+
+### POST new dish
+POST http://localhost:3000/dishes
+Content-Type: application/json
+
+{
+    "Name": "Torta de jamón y queso",
+    "Description": "Torta de jamón y queso con mayonesa y lechuga",
+    "Category": "Merienda",
+    "Price": 40.00,
+    "Photography": "https://th.bing.com/th/id/R.1d6a64bba72c3e1e7b8a5d8a5a8b4c25?rik=U%2fFZwDlFj9J6Mg&pid=ImgRaw&r=0"
+}
+
+
+
+### Update dish
+PATCH http://localhost:3000/dishes/
+Content-Type: application/json
+
+{
+    "Name": "Torta de pierna",
+    "Price": 60.00
+}
+
+### DELETE dish
+DELETE http://localhost:3000/dishes/9

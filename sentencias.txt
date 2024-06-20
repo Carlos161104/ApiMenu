@@ -1,0 +1,52 @@
+DROP database IF exists menudb;
+CREATE DATABASE menudb;
+
+USE menudb;
+
+CREATE TABLE users (
+    ID BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+    Name VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    IsAdmin BOOLEAN NOT NULL
+);
+
+CREATE TABLE dishes (
+    ID INT AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    Name VARCHAR(255) NOT NULL,
+    Description VARCHAR(255) NOT NULL,
+    Category VARCHAR(255) NOT NULL,
+    Price DECIMAL(5,2) NOT NULL,
+    Photography TEXT NOT NULL
+);
+
+CREATE TABLE reviews (
+    ID BINARY(16) PRIMARY KEY DEFAULT (UUID_TO_BIN(UUID())),
+    UserID BINARY(16),
+    DishID INT,
+    Commentary TEXT NOT NULL,
+    Rating INT NOT NULL,
+    Likes INT NOT NULL,
+    FOREIGN KEY (UserID) REFERENCES users(ID),
+    FOREIGN KEY (DishID) REFERENCES dishes(ID)
+);
+
+-- Insertando registros en la tabla 'users'
+INSERT INTO users (ID, Name, Email, IsAdmin) VALUES 
+(UUID_TO_BIN(UUID()), 'Juan Perez', 'juan.perez@example.com', FALSE),
+(UUID_TO_BIN(UUID()), 'Maria Lopez', 'maria.lopez@example.com', FALSE),
+(UUID_TO_BIN(UUID()), 'Carlos García', 'carlos.garcia@example.com', TRUE);
+
+-- Insertando registros en la tabla 'dishes'
+INSERT INTO dishes (Name, Description, Category, Price, Photography) VALUES 
+('Chilaquiles', 'Chilaquiles verdes con pollo y crema', 'Desayuno', 50.00, 'https://cdn7.kiwilimon.com/recetaimagen/35578/42852.jpg'),
+('Tortas', 'Torta de jamón con queso y aguacate', 'Comida', 35.00, 'https://th.bing.com/th/id/R.f6717426f223b079086ffc1d10d47740?rik=WOlbEjGNwE0xOQ&pid=ImgRaw&r=0'),
+('Burritos', 'Burrito de carne asada con frijoles y salsa', 'Cena', 45.00, 'https://th.bing.com/th/id/R.e255e2a8285e69a56b0c1b654561fa21?rik=XA%2b8ehxZ7QrbCg&pid=ImgRaw&r=0');
+
+-- Insertando registros en la tabla 'reviews'
+-- Nota: Se asume que los IDs de usuarios y platillos ya existen y son válidos.
+INSERT INTO reviews (ID, UserID, DishID, Commentary, Rating, Likes) VALUES 
+(UUID_TO_BIN(UUID()), (SELECT ID FROM users WHERE name = 'Juan Perez'), 1, 'Deliciosos chilaquiles, muy recomendados.', 5, 10),
+(UUID_TO_BIN(UUID()), (SELECT ID FROM users WHERE name = 'Maria Lopez'), 2, 'La torta estaba buena pero le faltaba sabor al jamón.', 3, 5),
+(UUID_TO_BIN(UUID()), (SELECT ID FROM users WHERE name = 'Juan Perez'), 3, 'El burrito tenía mucha carne y estaba muy sabroso.', 4, 8);
+
+select * from reviews 
